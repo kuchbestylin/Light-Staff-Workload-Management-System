@@ -1,0 +1,21 @@
+:root{
+    --min-bg-color: green;
+    --main-text-color: green;
+    --second-text-color: white;
+    --second-bg-color: white;
+}
+.primary-text{
+    color:var(--main-text-color)
+}
+.secong-text{
+    color: var(--second-text-color);
+}
+.primary-bg{
+    background-color: var(--min-bg-color);
+}
+.secondary-bg{
+    background-color: var(--second-bg-color);
+}
+.rounded-full{
+    border-radius: 100%;
+}
