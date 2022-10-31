@@ -20,7 +20,28 @@
     <!--Custome CSS-->
     <link rel="stylesheet" href="./style.css">
 
-    <title>Home Page</title>
+    <title>Order Page</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Lecturer\'s Id numbers',     20],
+          ['Lecturer\'s names', 27],
+          ['Lecturer\'s emails',    24]
+        ]);
+
+        var options = {
+          title: 'Utization',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
+    </script>
 </head>
 
 <body>
@@ -48,21 +69,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="#">Logout</a>
-                    </li>
-                    <li>
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle fw-bold text-dark" href="#" id="navbarDropdown"
-                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-user me-2"></i>Mr Mbaeva
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                                    <li><a class="dropdown-item" href="#">Logout</a></li>
-                                </ul>
-                            </li>
-                        </ul>
                     </li>
                 </ul>
 
@@ -125,96 +131,53 @@
     </div>
     <!--End Topside-->
 
-    <!--Graphs-->
-    <div class="container">
-        <div class="row my-5">
-            <div class="col-md-6">
-                <div class="bg-white">
-                    <canvas id="myChart1" width="400" height="300"></canvas>
-                    <script>
-                        var ctx = document.getElementById('myChart1').getContext('2d');
-                        var myChart1 = new Chart(ctx, {
-                            type: 'pie',
-                            data: {
-                                labels: ['Allocated Courses', 'Research Activities', 'Administrative Tasks'],
-                                datasets: [{
-                                    label: 'Products',
-                                    data: [45, 45, 20],
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(153, 102, 255, 1)'
-                                    ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(153, 102, 255, 1)'
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }]
-                                }
-                            }
-                        });
-                    </script>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="bg-white">
-                    <canvas id="myChart" width="400" height="300"></canvas>
-                    <script>
-                        var ctx = document.getElementById('myChart').getContext('2d');
-                        var myChart = new Chart(ctx, {
-                            type: 'bar',
-                            data: {
-                                labels: ['Allocated Courses', 'Research Projects', 'Administrative Tasks'],
-                                datasets: [{
-                                    label: 'Work Load',
-                                    data: [70, 70, 20],
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(153, 102, 255, 1)'
-                                    ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(153, 102, 255, 1)'
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }]
-                                }
-                            }
-                        });
-                    </script>
-                </div>
+    <!--Table-->
+    <div class="container-fluid w-100 d-flex justify-content-center flex-column mt-5">
+        <div class="row my-4">
+            <div class="col-12">
+                <table class="table bg-white">
+                    <thead class="bg-info">
+                        <tr class="text-white">
+                            <th scope="col">ID</th>
+                            <th scope="col">Assigned by</th>
+                            <th scope="col">Due Date</th>
+                            <th scope="col">Time Estimate</th>
+                            <th scope="col">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>20 November 2022</td>
+                            <td>20</td>
+                            <td>Submit all lectures ID numbers</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>24 November 2022</td>
+                            <td>24</td>
+                            <td>Submit all lectures emails</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>2 december 2022</td>
+                            <td>27</td>
+                            <td>Submit all lectures names</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
+        <div id="piechart_3d" style="width: 100%; height: 500px;"></div>
+
     </div>
 
-    <div class="container-fluid d-flex justify-content-center my-5">
-        <div>
-            <button class="btn btn-primary btn-lg" onclick="window.print();return false;">Generate Work-Load
-                Sheet</button>
-        </div>
-    </div>
-    <hr class="my-5">
-    <!--End Graphs-->
+
+
+    <!--End Table-->
 
     <!-- Optional JavaScript; choose one of the two! -->
 

@@ -20,7 +20,73 @@
     <!--Custome CSS-->
     <link rel="stylesheet" href="./style.css">
 
-    <title>Home Page</title>
+    <title>Staff Page</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart', 'bar']});
+      google.charts.setOnLoadCallback(drawStuff);
+
+      function drawStuff() {
+
+        var button = document.getElementById('change-chart');
+        var chartDiv = document.getElementById('chart_div');
+
+        var data = google.visualization.arrayToDataTable([
+          ['Course', 'Practical', 'Theory'],
+          ['Software Processes', 20000, 24],
+          ['Database Prgramming', 24000, 12],
+          ['Programming 2', 30000, 14.3]
+        ]);
+
+        var materialOptions = {
+          width: 900,
+          chart: {
+            title: 'Second Semester 2022',
+            subtitle: 'Practical class load on left, theory on right'
+          },
+          series: {
+            0: { axis: 'distance' }, // Bind series 0 to an axis named 'distance'.
+            1: { axis: 'brightness' } // Bind series 1 to an axis named 'brightness'.
+          },
+          axes: {
+            y: {
+              distance: {label: 'Work load (seconds)'}, // Left y-axis.
+              brightness: {side: 'right', label: 'Utilization (Kilojoules)'} // Right y-axis.
+            }
+          }
+        };
+
+        var classicOptions = {
+          width: 900,
+          series: {
+            0: {targetAxisIndex: 0},
+            1: {targetAxisIndex: 1}
+          },
+          title: 'Practical class load on left, theory on right',
+          vAxes: {
+            // Adds titles to each axis.
+            0: {title: 'Work load (seconds)'},
+            1: {title: 'Utilization (Kilojoules)'}
+          }
+        };
+
+        function drawMaterialChart() {
+          var materialChart = new google.charts.Bar(chartDiv);
+          materialChart.draw(data, google.charts.Bar.convertOptions(materialOptions));
+          button.innerText = 'Change to Classic';
+          button.onclick = drawClassicChart;
+        }
+
+        function drawClassicChart() {
+          var classicChart = new google.visualization.ColumnChart(chartDiv);
+          classicChart.draw(data, classicOptions);
+          button.innerText = 'Change to Material';
+          button.onclick = drawMaterialChart;
+        }
+
+        drawMaterialChart();
+    };
+    </script>
 </head>
 
 <body>
@@ -48,21 +114,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="#">Logout</a>
-                    </li>
-                    <li>
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle fw-bold text-dark" href="#" id="navbarDropdown"
-                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-user me-2"></i>Mr Mbaeva
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                                    <li><a class="dropdown-item" href="#">Logout</a></li>
-                                </ul>
-                            </li>
-                        </ul>
                     </li>
                 </ul>
 
@@ -125,96 +176,93 @@
     </div>
     <!--End Topside-->
 
-    <!--Graphs-->
+    <!--Table-->
     <div class="container">
-        <div class="row my-5">
-            <div class="col-md-6">
-                <div class="bg-white">
-                    <canvas id="myChart1" width="400" height="300"></canvas>
-                    <script>
-                        var ctx = document.getElementById('myChart1').getContext('2d');
-                        var myChart1 = new Chart(ctx, {
-                            type: 'pie',
-                            data: {
-                                labels: ['Allocated Courses', 'Research Activities', 'Administrative Tasks'],
-                                datasets: [{
-                                    label: 'Products',
-                                    data: [45, 45, 20],
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(153, 102, 255, 1)'
-                                    ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(153, 102, 255, 1)'
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }]
-                                }
-                            }
-                        });
-                    </script>
+        <div class="row my-4">
+            <div class="col-md-4">
+                <div class="border bg-white p-3">
+                    <h4>Add Course</h4>
+                    <hr>
+                    <form action="">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Choose Course</label>
+                            <select id="inputState" class="form-control">
+                                <option selected>Choose...</option>
+                                <option>Software Processes</option>
+                                <option>Database Fundamentals</option>
+                                <option>Design Thinking</option>
+                                <option>Database Programming</option>
+                                <option>Programming 1</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group d-flex gap-6 align-items-center ">
+                            <label for="exampleInputPassword1" class="me-4">Coordinator?</label>
+                            <input type="checkbox" class="form-control-lg" id="exampleInputPassword1">
+                        </div>
+                        <input class="btn btn-success btn-block" type="submit" value="Submit Request">
+
+                    </form>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="bg-white">
-                    <canvas id="myChart" width="400" height="300"></canvas>
-                    <script>
-                        var ctx = document.getElementById('myChart').getContext('2d');
-                        var myChart = new Chart(ctx, {
-                            type: 'bar',
-                            data: {
-                                labels: ['Allocated Courses', 'Research Projects', 'Administrative Tasks'],
-                                datasets: [{
-                                    label: 'Work Load',
-                                    data: [70, 70, 20],
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(153, 102, 255, 1)'
-                                    ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(153, 102, 255, 1)'
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }]
-                                }
-                            }
-                        });
-                    </script>
-                </div>
+            <div class="col-md-8">
+                <table class="table bg-white">
+                    <thead class="bg-info">
+                        <tr class="text-white">
+                            <th scope="col">ID</th>
+                            <th scope="col">Course Name</th>
+                            <th scope="col">Department</th>
+                            <th scope="col">Coordinator</th>
+                            <th scope="col">Period</th>
+                            <th scope="col">Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Software Prosses</td>
+                            <td>Computer Science</td>
+                            <td>Yes</td>
+                            <td>S2 2022</td>
+                            <td>
+                                <a class="btn btn-info btn-sm" href="">Edit</a>
+                                <a class="btn btn-danger btn-sm" href="">Delete</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Database Programming</td>
+                            <td>Computer Science</td>
+                            <td>No</td>
+                            <td>S2 2022</td>
+                            <td>
+                                <a class="btn btn-info btn-sm" href="">Edit</a>
+                                <a class="btn btn-danger btn-sm" href="">Delete</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Programming 2</td>
+                            <td>Computer Science</td>
+                            <td>No</td>
+                            <td>S2 2022</td>
+                            <td>
+                                <a class="btn btn-info btn-sm" href="">Edit</a>
+                                <a class="btn btn-danger btn-sm" href="">Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
+        <button id="change-chart">Change to Classic</button>
+        <br><br>
+        <div id="chart_div" style="width: 100%; height: 500px;"></div>
     </div>
 
-    <div class="container-fluid d-flex justify-content-center my-5">
-        <div>
-            <button class="btn btn-primary btn-lg" onclick="window.print();return false;">Generate Work-Load
-                Sheet</button>
-        </div>
-    </div>
-    <hr class="my-5">
-    <!--End Graphs-->
+
+
+    <!--End Table-->
 
     <!-- Optional JavaScript; choose one of the two! -->
 

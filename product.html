@@ -20,7 +20,34 @@
     <!--Custome CSS-->
     <link rel="stylesheet" href="./style.css">
 
-    <title>Home Page</title>
+    <title>Product Page</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["timeline"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var container = document.getElementById('example6.1');
+        var chart = new google.visualization.Timeline(container);
+        var dataTable = new google.visualization.DataTable();
+        dataTable.addColumn({ type: 'string', id: 'Role' });
+        dataTable.addColumn({ type: 'string', id: 'Name' });
+        dataTable.addColumn({ type: 'date', id: 'Start' });
+        dataTable.addColumn({ type: 'date', id: 'End' });
+        dataTable.addRows([
+          [ 'Critical Research', 'Global Ressesion', new Date(2022, 8, 30), new Date(2022, 11, 4) ],
+          [ 'Analysis Research', 'Asynchrounous processing', new Date(2022, 8, 4), new Date(2022, 11, 4) ],
+          [ 'Analysis Research', 'Serverless Computing', new Date(2022, 7, 4), new Date(2022, 11, 4) ]]);
+    
+        var options = {
+          colors: ['#cbb69d', '#603913', '#c69c6e'],
+          timeline: { rowLabelStyle: {fontName: 'Helvetica', fontSize: 24, color: '#603913' },
+                         barLabelStyle: { fontName: 'Garamond', fontSize: 14 } }
+        };
+    
+        chart.draw(dataTable, options);
+      }
+    </script>
 </head>
 
 <body>
@@ -48,21 +75,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="#">Logout</a>
-                    </li>
-                    <li>
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle fw-bold text-dark" href="#" id="navbarDropdown"
-                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-user me-2"></i>Mr Mbaeva
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                                    <li><a class="dropdown-item" href="#">Logout</a></li>
-                                </ul>
-                            </li>
-                        </ul>
                     </li>
                 </ul>
 
@@ -125,96 +137,99 @@
     </div>
     <!--End Topside-->
 
-    <!--Graphs-->
+    <!--Table-->
     <div class="container">
-        <div class="row my-5">
-            <div class="col-md-6">
-                <div class="bg-white">
-                    <canvas id="myChart1" width="400" height="300"></canvas>
-                    <script>
-                        var ctx = document.getElementById('myChart1').getContext('2d');
-                        var myChart1 = new Chart(ctx, {
-                            type: 'pie',
-                            data: {
-                                labels: ['Allocated Courses', 'Research Activities', 'Administrative Tasks'],
-                                datasets: [{
-                                    label: 'Products',
-                                    data: [45, 45, 20],
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(153, 102, 255, 1)'
-                                    ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(153, 102, 255, 1)'
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }]
-                                }
-                            }
-                        });
-                    </script>
+        <div class="row my-4">
+            <div class="col-md-4">
+                <div class="border bg-white p-3">
+                    <h4>Add Research project</h4>
+                    <hr>
+                    <form action="">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Title</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Duration (Months)</label>
+                            <input type="" class="form-control" id="exampleInputPassword1">
+                        </div>
+                        <div class="form-group ">
+                            <label for="inputState">Category</label>
+                            <select id="inputState" class="form-control">
+                                <option selected>Choose...</option>
+                                <option>Imperative</option>
+                                <option>Analysis</option>
+                                <option>Historical</option>
+                                <option>Critical</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Supportig Document</label>
+                            <input type="file" class="form-control ">
+                        </div>
+                        <input class="btn btn-success btn-block" type="submit" value="Add Project">
+
+                    </form>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="bg-white">
-                    <canvas id="myChart" width="400" height="300"></canvas>
-                    <script>
-                        var ctx = document.getElementById('myChart').getContext('2d');
-                        var myChart = new Chart(ctx, {
-                            type: 'bar',
-                            data: {
-                                labels: ['Allocated Courses', 'Research Projects', 'Administrative Tasks'],
-                                datasets: [{
-                                    label: 'Work Load',
-                                    data: [70, 70, 20],
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(153, 102, 255, 1)'
-                                    ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(153, 102, 255, 1)'
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }]
-                                }
-                            }
-                        });
-                    </script>
-                </div>
+            <div class="col-md-8">
+                <table class="table bg-white">
+                    <thead class="bg-info">
+                        <tr class="text-white">
+                            <th scope="col">ID</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Duration</th>
+                            <th scope="col">Supporting Document</th>
+                            <th scope="col">Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Global Recession</td>
+                            <td>Critical</td>
+                            <td>3months</td>
+                            <td>file.docx</td>
+                            <td>
+                                <a class="btn btn-info btn-sm" href="">Edit</a>
+                                <a class="btn btn-danger btn-sm" href="">Delete</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Assynchronous Processing</td>
+                            <td>Analysis</td>
+                            <td>3months</td>
+                            <td>file.txt</td>
+                            <td>
+                                <a class="btn btn-info btn-sm" href="">Edit</a>
+                                <a class="btn btn-danger btn-sm" href="">Delete</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Serverless Computing</td>
+                            <td>Analysis</td>
+                            <td>4months</td>
+                            <td>file.txt</td>
+                            <td>
+                                <a class="btn btn-info btn-sm" href="">Edit</a>
+                                <a class="btn btn-danger btn-sm" href="">Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
+        <div id="example6.1" style="height: 200px;"></div>
     </div>
 
-    <div class="container-fluid d-flex justify-content-center my-5">
-        <div>
-            <button class="btn btn-primary btn-lg" onclick="window.print();return false;">Generate Work-Load
-                Sheet</button>
-        </div>
-    </div>
-    <hr class="my-5">
-    <!--End Graphs-->
+
+
+    <!--End Table-->
 
     <!-- Optional JavaScript; choose one of the two! -->
 
