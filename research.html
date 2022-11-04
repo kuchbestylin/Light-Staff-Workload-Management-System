@@ -20,26 +20,32 @@
     <!--Custome CSS-->
     <link rel="stylesheet" href="./style.css">
 
-    <title>Order Page</title>
+    <title>Research Page</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
     <script type="text/javascript">
-      google.charts.load("current", {packages:["corechart"]});
+      google.charts.load("current", {packages:["timeline"]});
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Lecturer\'s Id numbers',     20],
-          ['Lecturer\'s names', 27],
-          ['Lecturer\'s emails',    24]
-        ]);
-
+        var container = document.getElementById('example6.1');
+        var chart = new google.visualization.Timeline(container);
+        var dataTable = new google.visualization.DataTable();
+        dataTable.addColumn({ type: 'string', id: 'Role' });
+        dataTable.addColumn({ type: 'string', id: 'Name' });
+        dataTable.addColumn({ type: 'date', id: 'Start' });
+        dataTable.addColumn({ type: 'date', id: 'End' });
+        dataTable.addRows([
+          [ 'Critical Research', 'Global Ressesion', new Date(2022, 8, 30), new Date(2022, 11, 4) ],
+          [ 'Analysis Research', 'Asynchrounous processing', new Date(2022, 8, 4), new Date(2022, 11, 4) ],
+          [ 'Analysis Research', 'Serverless Computing', new Date(2022, 7, 4), new Date(2022, 11, 4) ]]);
+    
         var options = {
-          title: 'Utization',
-          is3D: true,
+          colors: ['#cbb69d', '#603913', '#c69c6e'],
+          timeline: { rowLabelStyle: {fontName: 'Helvetica', fontSize: 24, color: '#603913' },
+                         barLabelStyle: { fontName: 'Garamond', fontSize: 14 } }
         };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-        chart.draw(data, options);
+    
+        chart.draw(dataTable, options);
       }
     </script>
 </head>
@@ -49,7 +55,7 @@
     <!--Navbar-->
     <nav class="navbar navbar-expand-lg navbar-info bg-info">
         <div class="container">
-            <a class="navbar-brand text-white" href="index.html">KenInventory</a>
+            <a class="navbar-brand text-white" href="index.html">NUST NAMIBIA</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -108,7 +114,7 @@
                                 </a>
                             </div>
                             <div class="col-md-4">
-                                <a class="text-decoration-none text-dark" href="product.html">
+                                <a class="text-decoration-none text-dark" href="research.html">
                                     <div class="card my-card shadow text-center p-3">
                                         <h4>Research</h4>
                                         <h3>4</h3>
@@ -132,47 +138,93 @@
     <!--End Topside-->
 
     <!--Table-->
-    <div class="container-fluid w-100 d-flex justify-content-center flex-column mt-5">
+    <div class="container">
         <div class="row my-4">
-            <div class="col-12">
+            <div class="col-md-4">
+                <div class="border bg-white p-3">
+                    <h4>Add Research project</h4>
+                    <hr>
+                    <form action="">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Title</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Duration (Months)</label>
+                            <input type="" class="form-control" id="exampleInputPassword1">
+                        </div>
+                        <div class="form-group ">
+                            <label for="inputState">Category</label>
+                            <select id="inputState" class="form-control">
+                                <option selected>Choose...</option>
+                                <option>Imperative</option>
+                                <option>Analysis</option>
+                                <option>Historical</option>
+                                <option>Critical</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Supportig Document</label>
+                            <input type="file" class="form-control ">
+                        </div>
+                        <input class="btn btn-success btn-block" type="submit" value="Add Project">
+
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-8">
                 <table class="table bg-white">
                     <thead class="bg-info">
                         <tr class="text-white">
                             <th scope="col">ID</th>
-                            <th scope="col">Assigned by</th>
-                            <th scope="col">Due Date</th>
-                            <th scope="col">Time Estimate</th>
-                            <th scope="col">Description</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Duration</th>
+                            <th scope="col">Supporting Document</th>
+                            <th scope="col">Activity</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>20 November 2022</td>
-                            <td>20</td>
-                            <td>Submit all lectures ID numbers</td>
+                            <td>Global Recession</td>
+                            <td>Critical</td>
+                            <td>3months</td>
+                            <td>file.docx</td>
+                            <td>
+                                <a class="btn btn-info btn-sm" href="">Edit</a>
+                                <a class="btn btn-danger btn-sm" href="">Delete</a>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>24 November 2022</td>
-                            <td>24</td>
-                            <td>Submit all lectures emails</td>
+                            <td>Assynchronous Processing</td>
+                            <td>Analysis</td>
+                            <td>3months</td>
+                            <td>file.txt</td>
+                            <td>
+                                <a class="btn btn-info btn-sm" href="">Edit</a>
+                                <a class="btn btn-danger btn-sm" href="">Delete</a>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>2 december 2022</td>
-                            <td>27</td>
-                            <td>Submit all lectures names</td>
+                            <td>Serverless Computing</td>
+                            <td>Analysis</td>
+                            <td>4months</td>
+                            <td>file.txt</td>
+                            <td>
+                                <a class="btn btn-info btn-sm" href="">Edit</a>
+                                <a class="btn btn-danger btn-sm" href="">Delete</a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <div id="piechart_3d" style="width: 100%; height: 500px;"></div>
-
+        <div id="example6.1" style="height: 200px;"></div>
     </div>
 
 
