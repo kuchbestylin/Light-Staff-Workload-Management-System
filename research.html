@@ -19,34 +19,36 @@
 
     <!--Custome CSS-->
     <link rel="stylesheet" href="./style.css">
-
+    <script src="signup.js"></script>
     <title>Research Page</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <script type="text/javascript">
-      google.charts.load("current", {packages:["timeline"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var container = document.getElementById('example6.1');
-        var chart = new google.visualization.Timeline(container);
-        var dataTable = new google.visualization.DataTable();
-        dataTable.addColumn({ type: 'string', id: 'Role' });
-        dataTable.addColumn({ type: 'string', id: 'Name' });
-        dataTable.addColumn({ type: 'date', id: 'Start' });
-        dataTable.addColumn({ type: 'date', id: 'End' });
-        dataTable.addRows([
-          [ 'Critical Research', 'Global Ressesion', new Date(2022, 8, 30), new Date(2022, 11, 4) ],
-          [ 'Analysis Research', 'Asynchrounous processing', new Date(2022, 8, 4), new Date(2022, 11, 4) ],
-          [ 'Analysis Research', 'Serverless Computing', new Date(2022, 7, 4), new Date(2022, 11, 4) ]]);
-    
-        var options = {
-          colors: ['#cbb69d', '#603913', '#c69c6e'],
-          timeline: { rowLabelStyle: {fontName: 'Helvetica', fontSize: 24, color: '#603913' },
-                         barLabelStyle: { fontName: 'Garamond', fontSize: 14 } }
-        };
-    
-        chart.draw(dataTable, options);
-      }
+        google.charts.load("current", { packages: ["timeline"] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var container = document.getElementById('example6.1');
+            var chart = new google.visualization.Timeline(container);
+            var dataTable = new google.visualization.DataTable();
+            dataTable.addColumn({ type: 'string', id: 'Role' });
+            dataTable.addColumn({ type: 'string', id: 'Name' });
+            dataTable.addColumn({ type: 'date', id: 'Start' });
+            dataTable.addColumn({ type: 'date', id: 'End' });
+            dataTable.addRows([
+                ['Critical Research', 'Global Ressesion', new Date(2022, 8, 30), new Date(2022, 11, 4)],
+                ['Analysis Research', 'Asynchrounous processing', new Date(2022, 8, 4), new Date(2022, 11, 4)],
+                ['Analysis Research', 'Serverless Computing', new Date(2022, 7, 4), new Date(2022, 11, 4)]]);
+
+            var options = {
+                colors: ['#cbb69d', '#603913', '#c69c6e'],
+                timeline: {
+                    rowLabelStyle: { fontName: 'Helvetica', fontSize: 24, color: '#603913' },
+                    barLabelStyle: { fontName: 'Garamond', fontSize: 14 }
+                }
+            };
+
+            chart.draw(dataTable, options);
+        }
     </script>
 </head>
 
@@ -101,30 +103,30 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header bg-info text-white">
-                        Dashboard Statistics
+                        Dashboard Component Statistics
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
-                                <a class="text-decoration-none text-dark" href="staff.html">
+                                <a class="text-decoration-none text-dark" href="courses.html">
                                     <div class="card my-card shadow text-center p-3">
-                                        <h4>Courses</h4>
-                                        <h3>4</h3>
+                                        <h4>Courses<i class="bi bi-book ml-1"></i></h4>
+                                        <h3>3</h3>
                                     </div>
                                 </a>
                             </div>
                             <div class="col-md-4">
                                 <a class="text-decoration-none text-dark" href="research.html">
                                     <div class="card my-card shadow text-center p-3">
-                                        <h4>Research</h4>
-                                        <h3>4</h3>
+                                        <h4>Research<i class="bi ml-1 bi-mortarboard-fill"></i></h4>
+                                        <h3>3</h3>
                                     </div>
                                 </a>
                             </div>
                             <div class="col-md-4">
-                                <a class="text-decoration-none text-dark" href="order.html">
+                                <a class="text-decoration-none text-dark" href="admin.html">
                                     <div class="card my-card shadow text-center p-3">
-                                        <h4>AdminDuty</h4>
+                                        <h4>AdminDuty<i class="bi ml-1 bi-list-task"></i></h4>
                                         <h3>4</h3>
                                     </div>
                                 </a>
@@ -144,10 +146,10 @@
                 <div class="border bg-white p-3">
                     <h4>Add Research project</h4>
                     <hr>
-                    <form action="">
+                    <form onsubmit="myfn()">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Title</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1"
+                            <input type="text" class="form-control" id="exampleInputEmail1"
                                 aria-describedby="emailHelp">
                         </div>
                         <div class="form-group">
@@ -169,8 +171,8 @@
                             <label for="exampleInputPassword1">Supportig Document</label>
                             <input type="file" class="form-control ">
                         </div>
-                        <input class="btn btn-success btn-block" type="submit" value="Add Project">
-
+                        <button class="btn btn-success btn-block" type="submit" onclick="return Unhide()"
+                            value="Add Project">Add Project</button>
                     </form>
                 </div>
             </div>
@@ -209,7 +211,7 @@
                                 <a class="btn btn-danger btn-sm" href="">Delete</a>
                             </td>
                         </tr>
-                        <tr>
+                        <tr hidden="true" id="ccc">
                             <th scope="row">3</th>
                             <td>Serverless Computing</td>
                             <td>Analysis</td>
